@@ -1,0 +1,114 @@
+Notes on Raspberry PI
+Marco van Zwetselaar <zwets@zwets.com>
+Created 2014-08-11 
+Updated 2017-03-05 (medinator, brewinator)
+Updated 2018-09-24 (raspinator)
+Updated 2019-04-07 (brewinator on raspinator - Sunny SD died)
+
+Documentation & Tutorials
+  Adafruit parts descriptions, datasheets, learning, etc
+    http://www.raspberrypi.org/
+    http://www.adafruit.com/
+  Adafruit Tutorials
+    https://learn.adafruit.com/
+  Elinux Tutorials - many cool things!
+    http://elinux.org/RPi_Tutorials
+  Bare Metal
+    http://elinux.org/RPi_Low-level_peripherals
+    https://en.wikibooks.org/wiki/Bare-metal_Raspberry_Pi_Programming
+  C library WiringPi
+    http://wiringpi.com/
+  Kegomatic
+    https://learn.adafruit.com/adafruit-keg-bot/bill-of-materials
+
+Projects
+  See brewinator/notes/notes-raspberry-pi-peripherals.txt
+  See brewinator/notes/notes-raspberry-pi-brewinator.txt
+
+Handling Images
+  Backing up image from SD
+    sudo dd bs=4M \
+      if='/dev/disk/by-id/mmc...
+      of=~/Development/raspberrypi/images/brewinator_$(date -I).img
+    sudo md5sum /dev/... /path/to/img/...
+    xz brewinator_*.img
+  Validate
+    truncate --reference (original-image).img (backup-file).img
+    md5sum (original-image).img (backup-file).img
+  Mounting on PC (so as to read them)
+    Just plug in and /boot and / will show up in /media/zwets
+
+Installation of Raspbian - brewinator.zwets.home 
+  Installed 2014-06-xx on SD with Sunny stickers (ngonga, 4G), to be overwritten
+  Installed 2015-05-xx brewinator on 8G SD with HAPPY orange
+    Updated apt-get dist-upgrade on 2017-03-05 (raspi-config no more needed)
+    Backup to helix image brewinator_2017-03-05.img.xz
+    Upgrade wheezy to jessie on 2018-09-23
+    Then decide to migrate to small SD with stretch lite
+      And rewrite its SD for raspinator
+  Installed 2018-09-24 brewinator on 4G SD with Sunny (stretch lite)
+    unzip -p 2018-06-27-raspbian-stretch-lite.zip | dd of=/dev/mmblk0 bs=4M conf=fsync
+    Used keyboard & screen over HDMI-DVI
+    Initial: pi / raspberry # blocked password
+    sudo raspi-config # and go through all options
+      expand rootfs to use whole disk
+      enable ssh
+      boot to command line
+      internationalisation: locale en_GB.UTF-8 (default), timezone, keyboard (en_US)
+      advanced: hostname (brewinator), SPI (enabled), I2C (enabled), one wire (enabled), serial (enabled)
+      configure the proxy
+      advanced/update
+  Add user zwets and disable user pi
+    Create user zwets: sudo adduser zwets  # with O..!2
+    Add to sudo: sudo addgroup zwets sudo
+    Add zwets to all pi groups (else need sudo for all io)
+    grep ':pi$' /etc/group | cut -d':' -f1 | while read G; do sudo addgroup zwets $G; done
+    Disable password for pi: sudo passwd -l pi 
+  Install core additional software
+    sudo apt-get update && sudo apt-get dist-upgrade
+    sudo apt install screen vim git build-essential man-db aptitude 
+  Install GPIO additional software (from tutorial #4)
+    sudo apt-get install python-rpi.gpio # BUT SEE pip install RPi.GPIO below
+  Install I2C additional system software (from tutorial #4)
+    sudo apt-get install python-smbus i2c-tools
+    sudo i2cdetect -y 1 # shows bus with a.o. PiUSP on #18, I2C on 0x20
+  Install brewinator software
+    This repository on helix to ~zwets/brewinator
+      git clone helix:Development/raspberrypi/brewinator ./brewinator
+    Copy the dotfiles back to roo
+      rsync -a ./brewinator/dotfiles/ ~/
+  On 2019-04-06 the Sunny SD died, install on the Happy SD
+    Already had Raspbian (with desktop)
+    sudo apt update && sudo apt dist-upgrade (huuuge, includes Mathematica)
+    Did all steps from above (including boot to command line)
+      The i2c-tools, smbus, etc were already installed
+
+Installation of Raspinator - raspinator.zwets.home 172.27.1.83
+  On the new 16G SD mini SD card in converter (same as medinator below)
+  Tried Ubuntu server 18 but failed, so raspbian
+  Identical steps to brewinator above, except the brewinator step
+  pass !2
+
+Installation of RaspBMC - medinator.zwets.home 172.27.1.81
+  Installed 2014-11-24.img on 8G mini SD
+    Creates two partitions: 70MB FAT32, 1.2G Linux
+  Fix keyboard
+    vi /etc/default/keyboard && sudo dpkg-reconfigure console-setup
+  Later replaced with fresh OSMC
+  Later moved to new Raspberry 4 and new 16G SD mini card
+
+External configuration
+  DHCPD on Candace # add links to ethers of raspberries and to MAC of USB WiFi dongle
+  DNS on Candace # add A records 1.81 (medinator), 1.82 (brewinator), 2.82 (usb-wifi)
+
+Adding WiFi USB
+  Just plug in to USB
+  Set password and SSID using raspi-config
+  Alternatively
+    wpa_passphrase ZwetsHome ********** >> /etc/wpa_supplicant/wpa_supplicant.conf
+
+Adding PiUPS
+  See *-peripherals and datasheet/piups-setup*
+  
+# vim: sts=2 sw=2 ai si et
+

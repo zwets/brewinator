@@ -1,0 +1,45 @@
+notes-raspberry-pi-brewinator.txt
+Marco van Zwetselaar <zwets@zwets.com>
+Created 2015-07-05
+Updated 2017-03-05 (create brewinator on wheezy)
+Updated 2018-09-23 (migrate to sunny SD on stretch-lite)
+Updated 2019-04-06 (migrate to happy SD on stretch)
+
+install image & initial configuration
+  2015-05-05-raspbian-wheezy.img
+
+later restart from fresh image
+  2018-06-27-raspbian-stretch-lite.zip
+  see notes-raspberry-pi.txt
+
+create LCD module
+  parts
+    lcd 20x4 white on blue (pins: #1 closest to edge)
+    potmeter with lcd
+    mcp23008 gpio to i2c (pins: counter clockwise, starting top left, so #1 at TL, #9 BL, #10 BR, #18 TR)
+    pi and cobbler (pins: odd down left, even down right)
+    half breadboard
+  instructions
+    local tutorials/character-lcd-with-raspberry-pi-or-beaglebone-black.pdf
+    source https://learn.adafruit.com/character-lcd-with-raspberry-pi-or-beaglebone-black/wiring
+  wiring (with MCP23008)
+    PI GND (PI
+      to ground rail
+      to MCP VSS A0 A1 A2 (PINS: #9 #5 #4 #3) 
+      to potmeter outer lead R
+      to LCD GND/VSS R/W (PINS: #1 #5)
+    PI 3.3V
+      to power rail
+      to MCP VDD RESET (PINS: #18 #6)
+    PI 5V
+      to potmeter outer lead L
+      to LCD PWR/VDD (optional via 1kOhm resistor:) LED+ (PINS: #2 #15)
+    Potmeter middle
+      to LCD Contract/V0 pin (PIN: #3)
+    PI I2C SCL SDA
+      to MCP SCL SDA (PINS: #1 #2)
+    MCP to LCD
+      GPIO A0 A1 A2  A3  A4  A5  A6 (PINS: #10..#16 - note bottom right then up) 
+        to RS EN DB4 DB5 DB6 DB7 LED- (PINS: #4 #6 #11..#14 #16)
+
+# vim: sts=2:sw=2:ai:si:et

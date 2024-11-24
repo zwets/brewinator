@@ -1,0 +1,32 @@
+Project demonstrating the use of the Adafruit code library for driving the MCP230xx GPIO expander.
+
+Drives three LEDs as with the direct GPIO and bash projects the-time.py
+but now across the I2C bus to an MCP230xx.
+
+Tutorial: tutorials/mcp230xx-*
+
+Required
+	see GPIO and I2C setup in top level notes-raspberry-pi.txt
+	git clone https://github.com/adafruit/Adafruit-Raspberry-Pi-Python-Code.git
+
+Contains
+	Adafruit_ADS1x15/
+	Adafruit_ADXL345/
+	Adafruit_BMP085/
+	Adafruit_CharLCD/
+	Adafruit_CharLCDPlate/
+	Adafruit_DHT_Driver/
+	Adafruit_DHT_Driver_Python/
+	Adafruit_I2C/
+	Adafruit_LEDBackpack/
+	Adafruit_LEDpixels/
+	Adafruit_LSM303/
+	Adafruit_MCP230xx/
+	Adafruit_MCP3002/
+	Adafruit_MCP3008/
+	Adafruit_MCP4725/
+	Adafruit_PWM_Servo_Driver/
+	Adafruit_TCS34725/
+	Adafruit_VCNL4000/
+
+

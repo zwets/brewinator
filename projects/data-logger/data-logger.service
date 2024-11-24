@@ -1,0 +1,25 @@
+# Systemd unit for the Data Logger
+#
+# Install using:
+#
+#   sudo systemctl enable $PWD/data-logger.service
+#
+# To uninstall:
+#
+#   sudo systemctl disable data-logger.service
+#
+
+[Unit]
+Description=Data Logger Service
+After=apache2.service
+
+[Service]
+ExecStart=/home/zwets/brewinator/projects/data-logger/run-data-logger.sh
+TimeoutStopSec=2
+KillSignal=SIGINT
+User=zwets
+Group=zwets
+SupplementaryGroups=gpio,i2c,spi
+
+[Install]
+WantedBy=multi-user.target

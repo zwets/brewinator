@@ -1,0 +1,5 @@
+bb L2	pin 3	GPIO:2/SDA	switch to	GND-rail
+bb L4	pin 7	GPIO:4		via 330-1K Ohm 	to Anode (long leg) green LED 	to GND rail
+bb L6	pin 11	GPIO:17		via 330-1K Ohm 	to Anode (long leg) yellow LED 	to GND rail
+bb L8	pin 15	GPIO:22		via 330-1K Ohm 	to Anode (long leg) red LED 	to GND rail
+bb L13	pin 25	GND		to GND rail 

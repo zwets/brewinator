@@ -1,0 +1,62 @@
+Return-Path: <zwets@zwets.com>
+Delivered-To: 5-zwets@zwets.com
+Received: (qmail 3942 invoked from network); 7 Jul 2015 21:32:10 +0200
+Received: from unknown (HELO ?197.187.225.94?) (197.187.225.94)
+  by server9.hosting2go.nl with (DHE-RSA-AES256-SHA encrypted) SMTP; 7 Jul 2015 21:32:10 +0200
+User-Agent: K-9 Mail for Android
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain;
+ charset=UTF-8
+Subject: Brewinator architecture
+From: Marco van Zwetselaar <zwets@zwets.com>
+Date: Tue, 07 Jul 2015 22:31:32 +0300
+To: Marco van Zwetselaar <zwets@zwets.com>
+Message-ID: <239F61B3-17C0-4127-82FF-8666A7DE5D2A@zwets.com>
+
+Machines
+  Drum roller
+    Use cases
+      UC1 Run Programme
+      Opt UC2 Manual Control
+      Opt UC3 View Status
+      Opt UC4 View Logs
+    Components
+      Controlling software
+      Raspberry Pi (brewinator)
+      Motor
+        Motor power supply
+          Car battery or batt charger
+          Either way cxn 12V to breadboard (MOSFET) or module
+        Motor power switch (12V or 220V)
+          Best: 12V DC switch, independent of supply choice
+          Then MOSFET on breadboard 12V in
+          Alternative: switch 220 counter plug
+      Opt Fan
+        Fan power supply (220V)
+        Fan power switch (220V)
+          Socket 220V
+          Module connected to socket 220V (TODO)
+      Opt T/H sensor
+      Opt LCD module
+      Opt button control
+    Mechanics
+      Programme
+        Drum rolls one minute every hour
+      Manual
+        Start rolling
+        Stop rolling
+      View status
+        Script on brewinator
+        Update LCD
+        Send email
+        Update web page
+    
+  Kiln
+  Mashtun
+  Fermentation fridge
+
+Modules
+
+-- 
+Sent from my Android device with K-9 Mail. Please excuse my brevity.

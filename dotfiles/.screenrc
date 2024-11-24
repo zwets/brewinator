@@ -1,0 +1,7 @@
+# Make startup silent
+startup_message off
+
+# Make ^B stuff a ^A into the input for the current window.
+# This makes ^B the "^A for remote screen sessions".
+bindkey "\002" meta
+

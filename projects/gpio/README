@@ -1,0 +1,5 @@
+GPIO Interfacing using the Python RPi.GPIO module
+
+See also the ../bash project for the knuckles
+See also the ../mcp230xx project for GPIO over I2C
+

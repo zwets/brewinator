@@ -1,0 +1,27 @@
+AM2302 README
+
+Little project to test the AM2302 (DHT22) Temp & Hum sensor
+
+  Marco van Zwetselaar <zwets@zwets.com>
+  2015-07-19
+
+Instructions
+  local tutorials/dht-humidity-sensing-on-raspberry-pi-with-gdocs-logging.pdf
+  source https://learn.adafruit.com/dht-humidity-sensing-on-raspberry-pi-with-gdocs-logging/wiring
+
+Required
+  Needs C library for reading its non-standard protocol
+  To compile
+    apt-get install build-essential python-dev
+    python setup.py build
+  To run
+    sudo su
+    LD_LIBRARY_PATH=directory-with-Raspberry_Pi_Driver.so
+    python AdafuitDHT.py 2303 23 # where 23 is pin number
+    ../../../projects/lcd-module/source-1/write_this.py  "$(python AdafruitDHT.py 2302 23)"
+  https://github.com/adafruit/Adafruit_Python_DHT
+
+Wiring
+  Red to 3.3V or 5V, black to GND, yellow to GPIO, white unconnected
+
+# vim: sts=2:sw=2:ai:si:et

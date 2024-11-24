@@ -1,0 +1,101 @@
+Notes on Raspberry PI - Peripherals
+Marco van Zwetselaar <zwets@zwets.com>
+Created 2015-01-10
+Updated 2017-03-05
+
+PI ITSELF - BCM2835-ARM
+  Raspberry Pi Rev B 512MB
+  datasheet: BCM2835-ARM-Peripherals.pdf
+
+PiUPS -
+  http://piups.net/support/
+  setup: http://piups.net/support/startupInstruction_piusv1.0engl.pdf
+  manual: http://piups.net/support/manual_piups3.0.pdf
+  datasheet: http://piups.net/support/datenblatt_piusv3.2engl.pdf
+
+ACT LED - On-board LED
+  http://www.elinux.org/RPi_Low-level_peripherals
+  project: bash/blinkenlights.sh 
+
+GPIO - On-board GPIO pins
+  From bash using /sys/class/gpio
+    projects: bash/the-time.sh bash/trafficlight.sh
+  GPIO using Python RPi.GPIO library
+    requires: apt-get install python-rpi.gpio # or pip install rpi.gpio
+    tutorial: adafruit lesson #4 (gpio-setup.pdf)
+    project: gpio/the-time.py
+  GPIO over I2C using Adafruit Python libraries
+    requires: git clone http://github.com/adafruit/Adafruit-Raspberry-Pi-Python-Code.git (in ~/libs)
+    tutorial: mcp230xx-gpio-expander-on-the-raspberry-pi.pdf
+    project: mcp230xx
+
+LCD 20x4 - Standard LCD 20x4 white on blue
+  https://www.adafruit.com/products/198
+  explanation: http://learn.adafruit.com/character-lcds
+  tutorial: https://learn.adafruit.com/character-lcd-with-raspberry-pi-or-beaglebone-black
+  requires: git clone http://github.com/adafruit/Adafruit_Python_CharLCD
+    or http://github.com/adafruit/Adafruit-Raspberry-Pi-Python-Code.git/*LCD
+  project: projects/lcd-module
+  datasheet (dimensions and pins): https://www.adafruit.com/datasheets/TC2004A-01.pdf
+  datasheet (commands): https://www.adafruit.com/datasheets/TC2004A-01.pdf
+
+SERIAL TO USB Terminal cable
+  See adafruit-lesson/05-using-a-console-cable.pdf
+  Connections Red (5v), <none> (5v), Black (GND), White (TxD), Green (RxD)
+  screen /dev/ttyUSB0 115200
+
+AM2302 Temp/moist Sensor (wired version of DHT22)
+  http://www.adafruit.com/products/393
+  datasheet: http://www.adafruit.com/datasheets/Digital%20humidity%20and%20temperature%20sensor%20AM2302.pdf
+  wiring: red to 3.3V or 5V, black to GND, yellow to GPIO, white unconnected
+  tutorials: http://learn.adafruit.com/dht
+    Note: the AM2302 already has resistor to VCC, none needed
+    Protocol is device specific, needs one GPIO, C code in the Adafruit_Python_DHT lib
+    https://learn.adafruit.com/dht-humidity-sensing-on-raspberry-pi-with-gdocs-logging
+  code: https://github.com/adafruit/Adafruit_Python_DHT
+  project: projects/am2302
+
+DS18B20 - OneWire waterproof digital temp sensor
+  tutorial: 11-ds18b20-temperature-sensing.pdf
+
+MCP9808 - High Accuracy thermometer
+  Range -40 to +125 ± 0.25
+
+MCP3008 - 10-bit 8 channel ADC spi
+  https://www.adafruit.com/products/856
+  4 spi pins
+  tutorials
+    https://learn.adafruit.com/reading-a-analog-in-and-controlling-audio-volume-with-the-raspberry-pi
+    https://learn.adafruit.com/send-raspberry-pi-data-to-cosm
+  datasheet http://www.adafruit.com/datasheets/MCP3008.pdf
+
+MCP23008 - i2c 8 input/output port expander
+  https://adafruit.com/products/593
+  2 i2c pins, 8 GPIO, interrupt
+  tutorial (for 23008/23017): https://learn.adafruit.com/mcp230xx-gpio-expander-on-the-raspberry-pi
+  datasheet: http://www.adafruit.com/datasheets/mcp23017.pdf 
+  can take 5V or 3.3V on VDD
+
+MCP23017 - i2c 16 input/output port expander
+  https://www.adafruit.com/products/732
+  2 i2c pins, 16 GPIO, interrupt
+  tutorial (for 23008/23017): https://learn.adafruit.com/mcp230xx-gpio-expander-on-the-raspberry-pi
+  datasheet: http://www.adafruit.com/datasheets/mcp23017.pdf 
+  can take 5V or 3.3V on VDD
+
+MOSFET N-Channel
+  https://www.adafruit.com/products/355
+  datasheet: http://www.adafruit.com/datasheets/irlb8721pbf.pdf
+
+XXX Remo
+Relay Module
+
+XXX PiFace
+Switches, relays 20V, etc. (from Jan??)
+
+USB WiFi
+  Setting up the TP-Link WiFi TL-WN725N (rtl8188eu) on Raspbian
+  Automatically supported in current Raspbian
+  Check /etc/network/interfaces and /etc/wpa_supplicant/wpa_supplicant.conf
+
+# vim: sts=2 sw=2 ai si et
